@@ -50,9 +50,9 @@
             </div>
 
             <div class="chats-header-comands me-4">
-              <i class="fa-solid fa-circle-notch ms-3"></i>
-              <i class="fa-solid fa-message ms-3"></i>
-              <i class="fa-solid fa-ellipsis-vertical ms-3"></i>
+              <i class="fa-solid fa-circle-notch ms-4"></i>
+              <i class="fa-solid fa-message ms-4"></i>
+              <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
             </div>
           </header>
 
@@ -62,7 +62,7 @@
             </div>
             <div class="ms-2">
               <span> Ricevi notifiche di nuovi messaggi </span>
-              <a href="" class="d-block">Attiva notifiche desktop</a>
+              <a href="#" class="d-block">Attiva notifiche desktop</a>
             </div>
           </div>
 
@@ -81,10 +81,62 @@
             </div>
           </div>
 
-          <div class="chats-container"></div>
+          <div class="chats-container">
+            <!-- chat -->
+            <div class="chat">
+              <figure class="img-rounded">
+                <img src="./img/avatar_1.jpg" alt="" />
+              </figure>
+              <div class="chat-text ms-2 mt-2 flex-grow-1">
+                <h2 class="chat-name fs-4">Michele</h2>
+                <h4 class="chat-preview fs-6">Ultimo messaggio inviato</h4>
+              </div>
+              <div class="chat-time">15:07</div>
+            </div>
+          </div>
         </section>
 
-        <section class="app-active"></section>
+        <section class="app-active">
+          <div class="active-chat-header">
+            <div class="active-header-profile d-flex align-items-center">
+              <figure class="img-rounded">
+                <img src="./img/avatar_1.jpg" alt="user profile" />
+              </figure>
+              <div class="ms-1">
+                <h2 class="chat-title fs-5">Michele</h2>
+                <h4 class="chat-access fs-6">Ultimo accesso oggi alle 12:00</h4>
+              </div>
+            </div>
+
+            <div class="active-header-comands me-4">
+              <i class="fa-solid fa-magnifying-glass ms-4"></i>
+              <i class="fa-solid fa-paperclip ms-4"></i>
+              <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
+            </div>
+          </div>
+
+          <div class="active-chat">
+            <div class="message-sent">
+              <span class="message-txt">Ciao come stai</span>
+              <span class="message-time">15:02</span>
+            </div>
+            <div class="message-reiceved">
+              <span class="message-txt">Io tutto bene grazie. Tu?</span>
+              <span class="message-time">15:02</span>
+            </div>
+          </div>
+
+          <div class="active-comands">
+            <i class="fa-regular fa-face-smile"></i>
+            <input
+              type="text"
+              name="message"
+              placeholder="Scrivi un messaggio"
+              class="message-input"
+            />
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+        </section>
       </div>
     </div>
 
