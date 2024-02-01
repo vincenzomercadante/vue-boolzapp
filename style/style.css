@@ -172,11 +172,15 @@ i {
 }
 
 /* ! active chat section */
+
+/* ? active chat header */
+
 .active-chat-header {
   height: 82px;
   width: 100%;
 }
 
+/* ? active chat */
 .active-chat-header .chat-title {
   color: black;
 }
@@ -186,10 +190,12 @@ i {
   padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   background-image: url(../img/mine.jpg);
   overflow: scroll;
 }
 
+/* | messages */
 .active-chat .message-sent,
 .active-chat .message-reiceved {
   min-width: 300px;
@@ -206,7 +212,7 @@ i {
 }
 
 .active-chat .message-reiceved {
-  align-items: flex-start;
+  align-self: flex-start;
   background-color: var(--reiceved-msg-bg);
 }
 
@@ -221,6 +227,7 @@ i {
   color: var(--active-comands-icon);
 }
 
+/* ? active comands */
 .active-comands {
   padding: 10px 3rem;
   height: 80px;
