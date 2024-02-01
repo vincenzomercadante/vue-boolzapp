@@ -153,6 +153,8 @@
               name="message"
               placeholder="Scrivi un messaggio"
               class="message-input"
+              v-model="newSentMessage.message"
+              @keyup.enter="sendMessage()"
             />
             <i class="fa-solid fa-microphone"></i>
           </div>

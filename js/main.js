@@ -169,6 +169,17 @@ const app = createApp({
         },
       ],
       activeChat: 0,
+      newSentMessage: {
+        date: "01/02/2024 17:15:00",
+        message: "",
+        status: "sent",
+      },
+
+      newReceivedMessage: {
+        date: "01/02/2024 17:15:00",
+        message: "ok",
+        status: "received",
+      },
     };
   },
 
@@ -179,6 +190,20 @@ const app = createApp({
      */
     goToChat(index) {
       this.activeChat = index;
+    },
+
+    // when the user click enter a new message istance will be add in the activeChat's messages array
+    sendMessage() {
+      this.contacts[this.activeChat].messages.push({ ...this.newSentMessage });
+      this.newSentMessage.message = "";
+      setTimeout(() => this.receivedMessage(), 1000);
+    },
+
+    // received message from the computer after 1 second
+    receivedMessage() {
+      this.contacts[this.activeChat].messages.push({
+        ...this.newReceivedMessage,
+      });
     },
   },
 });
