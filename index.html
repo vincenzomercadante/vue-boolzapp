@@ -88,13 +88,13 @@
 
           <!-- chats list section -->
           <div class="chats-container">
-            <!-- chat -->
-            <div class="chat">
+            <!-- chat generator -->
+            <div v-for="contact in contacts" class="chat">
               <figure class="img-rounded">
-                <img src="./img/avatar_1.jpg" alt="" />
+                <img :src="contact.avatar" alt="" />
               </figure>
               <div class="chat-text ms-2 mt-2 flex-grow-1">
-                <h2 class="chat-name fs-4">Michele</h2>
+                <h2 class="chat-name fs-4">{{contact.name}}</h2>
                 <h4 class="chat-preview fs-6">Ultimo messaggio inviato</h4>
               </div>
               <div class="chat-time">15:07</div>

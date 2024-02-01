@@ -89,6 +89,7 @@ i {
 }
 
 .chats-header {
+  height: 82px;
   border-right: 1px solid #d6d6d6;
 }
 
@@ -100,6 +101,7 @@ i {
 
 /* ? notification */
 #app .chats-notification {
+  height: 92px;
   display: flex;
   align-items: center;
   background-color: var(--notifacation-bg);
@@ -124,6 +126,7 @@ i {
 /* ? search input */
 
 .chats-search {
+  height: 55px;
   display: flex;
   align-items: center;
   background-color: var(--chats-section-bg);
@@ -137,8 +140,8 @@ i {
 
 /* ? chats-container */
 .chats-container {
+  height: calc(100% - 82px - 92px - 55px);
   overflow: auto;
-  height: 80%;
   background-color: var(--chats-section-bg);
 }
 
