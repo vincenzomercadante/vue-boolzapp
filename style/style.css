@@ -193,18 +193,19 @@ i {
   padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
   background-image: url(../img/mine.jpg);
   overflow: scroll;
 }
 
 /* | messages */
 .active-chat .message-sent,
-.active-chat .message-reiceved {
+.active-chat .message-received {
+  padding: 0.5rem 0;
   min-width: 300px;
   max-width: 500px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   border-radius: 10px;
   color: #222;
 }
@@ -214,17 +215,17 @@ i {
   background-color: var(--sent-msg-bg);
 }
 
-.active-chat .message-reiceved {
+.active-chat .message-received {
   align-self: flex-start;
   background-color: var(--reiceved-msg-bg);
 }
 
 .message-txt {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .message-time {
-  padding: 0.5rem;
+  padding-right: 0.5rem;
   align-self: flex-end;
   font-size: 0.7rem;
   color: var(--active-comands-icon);

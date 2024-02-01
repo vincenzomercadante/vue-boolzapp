@@ -10,7 +10,7 @@ const app = createApp({
           name: "Michele",
           avatar: "./img/avatar_1.jpg",
           visible: true,
-          message: [
+          messages: [
             {
               date: "10/01/2020 15:30:55",
               message: "Hai portato a spasso il cane?",
@@ -168,10 +168,19 @@ const app = createApp({
           ],
         },
       ],
+      activeChat: 0,
     };
   },
 
-  methods: {},
+  methods: {
+    /**
+     *
+     * @param {number} index new active chat
+     */
+    goToChat(index) {
+      this.activeChat = index;
+    },
+  },
 });
 
 // running the app

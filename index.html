@@ -89,7 +89,11 @@
           <!-- chats list section -->
           <div class="chats-container">
             <!-- chat generator -->
-            <div v-for="contact in contacts" class="chat">
+            <div
+              v-for="(contact,index) in contacts"
+              @click="goToChat(index)"
+              class="chat"
+            >
               <figure class="img-rounded">
                 <img :src="contact.avatar" alt="" />
               </figure>
@@ -109,10 +113,10 @@
             <!-- active chat header title -->
             <div class="active-header-profile d-flex align-items-center">
               <figure class="img-rounded">
-                <img src="./img/avatar_1.jpg" alt="user profile" />
+                <img :src="contacts[activeChat].avatar" alt="user profile" />
               </figure>
               <div class="ms-1">
-                <h2 class="chat-title fs-5">Michele</h2>
+                <h2 class="chat-title fs-5">{{contacts[activeChat].name}}</h2>
                 <h4 class="chat-access fs-6">Ultimo accesso oggi alle 12:00</h4>
               </div>
             </div>
@@ -127,13 +131,17 @@
 
           <!-- active chat section -->
           <div class="active-chat">
-            <div class="message-sent">
+            <!-- <div class="message-sent">
               <span class="message-txt">Ciao come stai</span>
               <span class="message-time">15:02</span>
-            </div>
-            <div class="message-reiceved">
-              <span class="message-txt">Io tutto bene grazie. Tu?</span>
-              <span class="message-time">15:02</span>
+            </div> -->
+            <div
+              v-for="message in contacts[activeChat].messages"
+              :class="'message-' +
+            message.status"
+            >
+              <span class="message-txt">{{message.message}}</span>
+              <span class="message-time">{{message.date}}</span>
             </div>
           </div>
 
