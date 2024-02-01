@@ -1,0 +1,125 @@
+/* custom props */
+:root {
+  /* palette */
+  --header-bg: #eaeaea;
+  --icon-color: #b1b1b1;
+  --notifacation-bg: #8edafc;
+  --notification-icon-bg: #f2fbff;
+  --chats-section-bg: #fafafa;
+}
+
+/* ! generics */
+
+body {
+  font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
+i {
+  cursor: pointer;
+}
+
+.img-rounded {
+  height: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: aquamarine;
+}
+
+.img-rounded img {
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}
+
+#app figure {
+  margin-bottom: 0;
+}
+
+/* ! viewport */
+.viewport {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: antiquewhite;
+}
+
+/* ! app */
+#app {
+  height: 850px;
+  width: 1600px;
+  display: flex;
+  overflow: hidden;
+
+  /* debug */
+  background-color: aqua;
+}
+
+#app .app-chats {
+  width: 35%;
+}
+
+/* ! chats-section */
+
+/* ? header */
+.chats-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-right: 1px solid #d6d6d6;
+  background-color: var(--header-bg);
+}
+
+.chats-header i {
+  font-size: 1.5rem;
+  color: var(--icon-color);
+}
+
+/* ? notification */
+#app .chats-notification {
+  display: flex;
+  align-items: center;
+  background-color: var(--notifacation-bg);
+}
+
+.chats-notification .img-rounded {
+  height: 60px;
+  background-color: var(--notification-icon-bg);
+  color: var(--notifacation-bg);
+}
+
+.chats-notification .img-rounded > i {
+  cursor: auto;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.chats-notification a {
+  color: rgb(131, 130, 130);
+}
+
+/* ? search input */
+
+.chats-search {
+  display: flex;
+  align-items: center;
+  background-color: var(--chats-section-bg);
+  border-bottom: 1px solid #d6d6d6;
+}
+
+#basic-addon1 {
+  color: var(--icon-color);
+  background-color: #fff;
+}
+
+/* ? chats-container */
+.chats-container {
+  overflow: auto;
+  height: 80%;
+  background-color: var(--chats-section-bg);
+}
