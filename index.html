@@ -82,6 +82,7 @@
                 placeholder="Cerca o inizia una nuova chat"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
+                v-model="searchInput"
               />
             </div>
           </div>
@@ -93,6 +94,7 @@
               v-for="(contact,index) in contacts"
               @click="goToChat(index)"
               class="chat"
+              v-show="contact.name.includes(searchInput)"
             >
               <figure class="img-rounded">
                 <img :src="contact.avatar" alt="" />

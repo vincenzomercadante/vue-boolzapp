@@ -180,6 +180,8 @@ const app = createApp({
         message: "ok",
         status: "received",
       },
+
+      searchInput: "",
     };
   },
 
