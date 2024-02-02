@@ -94,16 +94,22 @@
               v-for="(contact,index) in contacts"
               @click="goToChat(index)"
               class="chat"
-              v-show="contact.name.includes(searchInput)"
+              v-show="contact.name.toLowerCase().includes(searchInput)"
             >
               <figure class="img-rounded">
                 <img :src="contact.avatar" alt="" />
               </figure>
               <div class="chat-text ms-2 mt-2 flex-grow-1">
                 <h2 class="chat-name fs-4">{{contact.name}}</h2>
-                <h4 class="chat-preview fs-6">Ultimo messaggio inviato</h4>
+                <h4 class="chat-preview fs-6">
+                  {{contact.messages.length > 0 ? getLastMessage(index).message
+                  : ""}}
+                </h4>
               </div>
-              <div class="chat-time">15:07</div>
+              <div class="chat-time">
+                {{contact.messages.length > 0 ? getLastMessage(index).date :
+                ""}}
+              </div>
             </div>
           </div>
         </section>
@@ -115,11 +121,11 @@
             <!-- active chat header title -->
             <div class="active-header-profile d-flex align-items-center">
               <figure class="img-rounded">
-                <img :src="contacts[activeChat].avatar" alt="user profile" />
+                <img :src=" getActiveChat.avatar" alt="user profile" />
               </figure>
               <div class="ms-1">
-                <h2 class="chat-title fs-5">{{contacts[activeChat].name}}</h2>
-                <h4 class="chat-access fs-6">Ultimo accesso oggi alle 12:00</h4>
+                <h2 class="chat-title fs-5">{{getActiveChat.name}}</h2>
+                <h4 class="chat-access fs-6">{{getLastAccess()}}</h4>
               </div>
             </div>
 
@@ -138,10 +144,34 @@
               <span class="message-time">15:02</span>
             </div> -->
             <div
-              v-for="message in contacts[activeChat].messages"
-              :class="'message-' +
-            message.status"
+              v-for="(message,index) in getActiveChat.messages"
+              class="message"
+              :class="message.status"
             >
+              <div class="dropdown message-menu-icon">
+                <div class="dropdown">
+                  <span
+                    class="dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                  ></span>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button class="dropdown-item" type="button">
+                        Message Info
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        type="button"
+                        @click="deleteMessage(index)"
+                      >
+                        Delete Message
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <span class="message-txt">{{message.message}}</span>
               <span class="message-time">{{message.date}}</span>
             </div>
@@ -164,8 +194,12 @@
       </div>
     </div>
 
-    <!-- BOOTSTRAP JS
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    BOOTSTRAP JS
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- MY JS -->
     <script type="text/javascript" src="./js/main.js"></script>

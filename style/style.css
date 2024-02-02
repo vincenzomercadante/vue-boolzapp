@@ -27,7 +27,7 @@ i {
 }
 
 .img-rounded {
-  height: 50px;
+  width: 50px;
   aspect-ratio: 1;
   border-radius: 50%;
   display: flex;
@@ -40,7 +40,6 @@ i {
 .img-rounded img {
   object-fit: cover;
   width: 100%;
-  display: block;
 }
 
 #app figure {
@@ -53,10 +52,10 @@ i {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
+  background-image: linear-gradient(
     to bottom,
-    var(--viewport-top-bg) 20%,
-    var(--viewport-bottom-bg) 20%
+    var(--viewport-top-bg) 15vh,
+    var(--viewport-bottom-bg) 15vh
   );
 }
 
@@ -108,7 +107,6 @@ i {
 }
 
 .chats-notification .img-rounded {
-  height: 60px;
   background-color: var(--notification-icon-bg);
   color: var(--notifacation-bg);
 }
@@ -158,7 +156,7 @@ i {
 }
 
 #app .chat .img-rounded {
-  height: 70px;
+  width: 70px;
 }
 
 .chat-text .chat-name,
@@ -172,6 +170,13 @@ i {
 .chat-time {
   color: var(--text-secondary);
   font-weight: bold;
+  word-wrap: break-word;
+}
+
+.chat-time {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  align-self: flex-start;
 }
 
 /* ! active chat section */
@@ -199,8 +204,8 @@ i {
 }
 
 /* | messages */
-.active-chat .message-sent,
-.active-chat .message-received {
+.active-chat .message {
+  position: relative;
   padding: 0.5rem 0;
   min-width: 300px;
   max-width: 500px;
@@ -208,16 +213,37 @@ i {
   flex-direction: column;
   border-radius: 10px;
   color: #222;
+  word-wrap: break-word;
 }
 
-.active-chat .message-sent {
+.div-prova {
+  position: absolute;
+  padding: 1rem;
+  background: white;
+  right: 0;
+  top: 40px;
+  z-index: 1;
+}
+
+.message.sent {
   align-self: flex-end;
   background-color: var(--sent-msg-bg);
 }
 
-.active-chat .message-received {
+.message.received {
   align-self: flex-start;
   background-color: var(--reiceved-msg-bg);
+}
+
+.message-menu-icon {
+  position: absolute;
+  visibility: hidden;
+  align-self: flex-end;
+  padding-right: 0.5rem;
+}
+
+.message:hover .message-menu-icon {
+  visibility: visible;
 }
 
 .message-txt {

@@ -170,19 +170,20 @@ const app = createApp({
       ],
       activeChat: 0,
       newSentMessage: {
-        date: "01/02/2024 17:15:00",
+        date: "",
         message: "",
         status: "sent",
       },
 
-      newReceivedMessage: {
-        date: "01/02/2024 17:15:00",
-        message: "ok",
-        status: "received",
-      },
-
       searchInput: "",
     };
+  },
+
+  computed: {
+    // recover the object of the active chat
+    getActiveChat() {
+      return this.contacts[this.activeChat];
+    },
   },
 
   methods: {
@@ -196,16 +197,63 @@ const app = createApp({
 
     // when the user click enter a new message istance will be add in the activeChat's messages array
     sendMessage() {
-      this.contacts[this.activeChat].messages.push({ ...this.newSentMessage });
+      this.newSentMessage.date = this.getMessageTime();
+      this.getActiveChat.messages.push({ ...this.newSentMessage });
       this.newSentMessage.message = "";
       setTimeout(() => this.receivedMessage(), 1000);
     },
 
     // received message from the computer after 1 second
     receivedMessage() {
-      this.contacts[this.activeChat].messages.push({
-        ...this.newReceivedMessage,
-      });
+      const newGeneratedMessage = {
+        date: "",
+        message: "ok",
+        status: "received",
+      };
+
+      newGeneratedMessage.date = this.getMessageTime();
+      this.getActiveChat.messages.push(newGeneratedMessage);
+    },
+
+    /**
+     *
+     * @param {number} index value of the chat where i need to recover the last message
+     * @returns {string} string of the last message on the chat
+     */
+    getLastMessage(index) {
+      return this.contacts[index].messages.at(-1);
+    },
+
+    /**
+     *
+     * @returns {Date} time when i sent the message
+     */
+    getMessageTime() {
+      const date = new Date();
+      return `${date.getHours()}:${date.getMinutes()}`;
+    },
+
+    /**
+     *
+     * @returns {string} last access of the user equals to the last received message
+     */
+    getLastAccess() {
+      const receivedMessage = this.getActiveChat.messages.filter(
+        (message) => message.status == "received"
+      );
+
+      const lastAccess =
+        receivedMessage.length > 0 ? receivedMessage.at(-1).date : "";
+
+      return lastAccess;
+    },
+
+    /**
+     *
+     * @param {number} index equals of the index of the message that I need to delete
+     */
+    deleteMessage(index) {
+      this.getActiveChat.messages.splice(index, 1);
     },
   },
 });
