@@ -169,10 +169,12 @@ const app = createApp({
         },
       ],
       activeChat: 0,
+
       newSentMessage: {
         date: "",
         message: "",
         status: "sent",
+        typed: false,
       },
 
       searchInput: "",
@@ -197,10 +199,31 @@ const app = createApp({
 
     // when the user click enter a new message istance will be add in the activeChat's messages array
     sendMessage() {
-      this.newSentMessage.date = this.getMessageTime();
-      this.getActiveChat.messages.push({ ...this.newSentMessage });
-      this.newSentMessage.message = "";
-      setTimeout(() => this.receivedMessage(), 1000);
+      this.inputCheck();
+      if (this.newSentMessage.typed) {
+        this.newSentMessage.date = this.getMessageTime();
+        this.getActiveChat.messages.push({ ...this.newSentMessage });
+        this.newSentMessage.message = "";
+        this.newSentMessage.typed = false;
+        setTimeout(() => this.receivedMessage(), 1000);
+      }
+    },
+
+    // methods thant check if the user typed something in the input text
+    inputCheck() {
+      if (this.newSentMessage.length <= 0) {
+        return;
+      } else {
+        let i = 0;
+        while (
+          i < this.newSentMessage.message.length &&
+          !this.newSentMessage.typed
+        ) {
+          if (this.newSentMessage.message.charAt(i) !== " ")
+            this.newSentMessage.typed = true;
+          i++;
+        }
+      }
     },
 
     // received message from the computer after 1 second
@@ -210,7 +233,6 @@ const app = createApp({
         message: "ok",
         status: "received",
       };
-
       newGeneratedMessage.date = this.getMessageTime();
       this.getActiveChat.messages.push(newGeneratedMessage);
     },
