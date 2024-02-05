@@ -72,8 +72,30 @@ i {
   position: relative;
   height: 850px;
   width: 1600px;
-  display: flex;
   overflow: hidden;
+}
+
+#app .splash-page {
+  height: 100%;
+  width: 100%;
+  background-color: #25d366;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+#app .app-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+#app .splash-page img {
+  height: 300px;
 }
 
 #app .app-chats {

@@ -26,6 +26,7 @@ const app = createApp({
         type: "info",
         msg: "",
       },
+      show: true,
     };
   },
 
@@ -183,6 +184,12 @@ const app = createApp({
       this.alert.msg = msg;
       this.alert.showed = true;
     },
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.show = false;
+    }, 2000);
   },
 });
 

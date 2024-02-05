@@ -40,199 +40,208 @@
     <div class="viewport">
       <!-- vue app container -->
       <div id="app">
+        <div class="splash-page" v-if="show">
+          <figure>
+            <img src="./img/boolzap-logo.png" alt="" />
+          </figure>
+
+          <h1 class="display-3">Boolzap is on mounting, please wait...</h1>
+        </div>
         <!-- chats app part -->
-        <section class="app-chats">
-          <!-- user profile info section -->
-          <header class="chats-header">
-            <div class="chats-header-profile d-flex align-items-center">
-              <figure class="img-rounded">
-                <img src="./img/avatar_io.jpg" alt="user profile" />
-              </figure>
-              <span class="d-block fs-5 ms-1">Sofia</span>
+        <div class="app-page" v-if="!show">
+          <section class="app-chats">
+            <!-- user profile info section -->
+            <header class="chats-header">
+              <div class="chats-header-profile d-flex align-items-center">
+                <figure class="img-rounded">
+                  <img src="./img/avatar_io.jpg" alt="user profile" />
+                </figure>
+                <span class="d-block fs-5 ms-1">Sofia</span>
+              </div>
+
+              <!-- user profile comands section -->
+              <div class="chats-header-comands me-4">
+                <i class="fa-solid fa-pen ms-4" @click="createContact()"></i>
+                <i class="fa-solid fa-circle-notch ms-4"></i>
+                <i class="fa-solid fa-message ms-4"></i>
+                <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
+              </div>
+            </header>
+
+            <!-- chats notification section -->
+            <div class="chats-notification py-3 px-4">
+              <div class="img-rounded">
+                <i class="fa-solid fa-bell-slash"></i>
+              </div>
+              <div class="ms-2">
+                <span> Ricevi notifiche di nuovi messaggi </span>
+                <a href="#" class="d-block">Attiva notifiche desktop</a>
+              </div>
             </div>
 
-            <!-- user profile comands section -->
-            <div class="chats-header-comands me-4">
-              <i class="fa-solid fa-pen ms-4" @click="createContact()"></i>
-              <i class="fa-solid fa-circle-notch ms-4"></i>
-              <i class="fa-solid fa-message ms-4"></i>
-              <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
+            <!-- chat research section -->
+            <div class="chats-search p-2">
+              <div class="input-group">
+                <span class="input-group-text px-4" id="basic-addon1">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Cerca o inizia una nuova chat"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  v-model="searchInput"
+                  @input="searchContact()"
+                />
+              </div>
             </div>
-          </header>
 
-          <!-- chats notification section -->
-          <div class="chats-notification py-3 px-4">
-            <div class="img-rounded">
-              <i class="fa-solid fa-bell-slash"></i>
-            </div>
-            <div class="ms-2">
-              <span> Ricevi notifiche di nuovi messaggi </span>
-              <a href="#" class="d-block">Attiva notifiche desktop</a>
-            </div>
-          </div>
-
-          <!-- chat research section -->
-          <div class="chats-search p-2">
-            <div class="input-group">
-              <span class="input-group-text px-4" id="basic-addon1">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Cerca o inizia una nuova chat"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                v-model="searchInput"
-                @input="searchContact()"
-              />
-            </div>
-          </div>
-
-          <!-- chats list section -->
-          <div class="chats-container">
-            <div class="chats-list" v-show="!newContactPressed">
-              <!-- chat generator -->
-              <div
-                v-for="(contact,index) in contacts"
-                @click="goToChat(index)"
-                class="chat p-2"
-                v-show="contact.visible"
-              >
-                <div class="col-2">
-                  <figure class="img-rounded">
-                    <img :src="contact.avatar" alt="" />
-                  </figure>
-                </div>
-                <div class="col-7">
-                  <div class="chat-text ms-2 mt-2 flex-grow-1">
-                    <h2 class="chat-name fs-4">{{contact.name}}</h2>
-                    <h4 class="chat-preview fs-6">
-                      {{getLastMessage(index).message}}
-                    </h4>
+            <!-- chats list section -->
+            <div class="chats-container">
+              <div class="chats-list" v-show="!newContactPressed">
+                <!-- chat generator -->
+                <div
+                  v-for="(contact,index) in contacts"
+                  @click="goToChat(index)"
+                  class="chat p-2"
+                  v-show="contact.visible"
+                >
+                  <div class="col-2">
+                    <figure class="img-rounded">
+                      <img :src="contact.avatar" alt="" />
+                    </figure>
+                  </div>
+                  <div class="col-7">
+                    <div class="chat-text ms-2 mt-2 flex-grow-1">
+                      <h2 class="chat-name fs-4">{{contact.name}}</h2>
+                      <h4 class="chat-preview fs-6">
+                        {{getLastMessage(index).message}}
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="chat-time">{{getLastMessage(index).date}}</div>
                   </div>
                 </div>
-                <div class="col-3">
-                  <div class="chat-time">{{getLastMessage(index).date}}</div>
+              </div>
+
+              <div
+                class="create-contact"
+                v-show="newContactPressed"
+                @keyUp.enter="addContactControl()"
+              >
+                <div class="create-contact-close" @click="createContact()">
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  class="form-control mb-3"
+                  placeholder="Type the username of the new contact"
+                  v-model.trim="newContact.name"
+                />
+                <label for="path" class="form-label">Profile Image</label>
+                <input
+                  type="text"
+                  name="path"
+                  id="path"
+                  class="form-control mb-3"
+                  placeholder="Insert the path of the new contact image profile"
+                  v-model.trim="newContact.avatar"
+                />
+
+                <div class="create-contact-comand">
+                  <button class="btn btn-success" @click="addContactControl()">
+                    <i class="fa-solid fa-floppy-disk"></i> Save
+                  </button>
                 </div>
               </div>
+              <div
+                class="alert"
+                role="alert"
+                :class="'alert-' + alert.type"
+                v-show="alert.showed"
+              >
+                {{alert.msg}}
+              </div>
+            </div>
+          </section>
+
+          <!-- active chat app part -->
+          <section class="app-active">
+            <!-- active chat header -->
+            <div class="active-chat-header">
+              <!-- active chat header title -->
+              <div class="active-header-profile d-flex align-items-center">
+                <figure class="img-rounded">
+                  <img :src=" getActiveChat.avatar" alt="user profile" />
+                </figure>
+                <div class="ms-3">
+                  <h2 class="chat-title fs-5">{{getActiveChat.name}}</h2>
+                  <h4 class="chat-access fs-6">{{getLastAccess()}}</h4>
+                </div>
+              </div>
+
+              <!-- active chat header comands -->
+              <div class="active-header-comands me-4">
+                <i class="fa-solid fa-magnifying-glass ms-4"></i>
+                <i class="fa-solid fa-paperclip ms-4"></i>
+                <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
+              </div>
             </div>
 
-            <div
-              class="create-contact"
-              v-show="newContactPressed"
-              @keyUp.enter="addContactControl()"
-            >
-              <div class="create-contact-close" @click="createContact()">
-                <i class="fa-solid fa-xmark"></i>
+            <!-- active chat section -->
+            <div class="active-chat">
+              <div
+                v-for="(message,index) in getActiveChat.messages"
+                class="message"
+                :class="message.status"
+              >
+                <div class="dropdown message-menu-icon">
+                  <span
+                    class="dropdown-toggle d-block"
+                    data-bs-toggle="dropdown"
+                  ></span>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button class="dropdown-item" type="button">
+                        Message Info
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        class="dropdown-item"
+                        type="button"
+                        @click="deleteMessage(index)"
+                      >
+                        Delete Message
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <span class="message-txt">{{message.message}}</span>
+                <span class="message-time">{{message.date}}</span>
               </div>
-              <label for="username" class="form-label">Username</label>
+            </div>
+
+            <!-- active chat footer -->
+            <div class="active-comands">
+              <i class="fa-regular fa-face-smile"></i>
               <input
                 type="text"
-                name="username"
-                id="username"
-                class="form-control mb-3"
-                placeholder="Type the username of the new contact"
-                v-model.trim="newContact.name"
+                name="message"
+                placeholder="Scrivi un messaggio"
+                class="message-input"
+                v-model="newSentMessage.message"
+                @keyup.enter="sendMessage()"
               />
-              <label for="path" class="form-label">Profile Image</label>
-              <input
-                type="text"
-                name="path"
-                id="path"
-                class="form-control mb-3"
-                placeholder="Insert the path of the new contact image profile"
-                v-model.trim="newContact.avatar"
-              />
-
-              <div class="create-contact-comand">
-                <button class="btn btn-success" @click="addContactControl()">
-                  <i class="fa-solid fa-floppy-disk"></i> Save
-                </button>
-              </div>
+              <i class="fa-solid fa-microphone"></i>
             </div>
-            <div
-              class="alert"
-              role="alert"
-              :class="'alert-' + alert.type"
-              v-show="alert.showed"
-            >
-              {{alert.msg}}
-            </div>
-          </div>
-        </section>
-
-        <!-- active chat app part -->
-        <section class="app-active">
-          <!-- active chat header -->
-          <div class="active-chat-header">
-            <!-- active chat header title -->
-            <div class="active-header-profile d-flex align-items-center">
-              <figure class="img-rounded">
-                <img :src=" getActiveChat.avatar" alt="user profile" />
-              </figure>
-              <div class="ms-3">
-                <h2 class="chat-title fs-5">{{getActiveChat.name}}</h2>
-                <h4 class="chat-access fs-6">{{getLastAccess()}}</h4>
-              </div>
-            </div>
-
-            <!-- active chat header comands -->
-            <div class="active-header-comands me-4">
-              <i class="fa-solid fa-magnifying-glass ms-4"></i>
-              <i class="fa-solid fa-paperclip ms-4"></i>
-              <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
-            </div>
-          </div>
-
-          <!-- active chat section -->
-          <div class="active-chat">
-            <div
-              v-for="(message,index) in getActiveChat.messages"
-              class="message"
-              :class="message.status"
-            >
-              <div class="dropdown message-menu-icon">
-                <span
-                  class="dropdown-toggle d-block"
-                  data-bs-toggle="dropdown"
-                ></span>
-                <ul class="dropdown-menu">
-                  <li>
-                    <button class="dropdown-item" type="button">
-                      Message Info
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      class="dropdown-item"
-                      type="button"
-                      @click="deleteMessage(index)"
-                    >
-                      Delete Message
-                    </button>
-                  </li>
-                </ul>
-              </div>
-              <span class="message-txt">{{message.message}}</span>
-              <span class="message-time">{{message.date}}</span>
-            </div>
-          </div>
-
-          <!-- active chat footer -->
-          <div class="active-comands">
-            <i class="fa-regular fa-face-smile"></i>
-            <input
-              type="text"
-              name="message"
-              placeholder="Scrivi un messaggio"
-              class="message-input"
-              v-model="newSentMessage.message"
-              @keyup.enter="sendMessage()"
-            />
-            <i class="fa-solid fa-microphone"></i>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
 
