@@ -189,7 +189,7 @@ const app = createApp({
   mounted() {
     setTimeout(() => {
       this.show = false;
-    }, 2000);
+    }, 1000);
   },
 });
 
