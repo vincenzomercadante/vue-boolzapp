@@ -83,6 +83,7 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 v-model="searchInput"
+                @input="searchContact()"
               />
             </div>
           </div>
@@ -93,22 +94,24 @@
             <div
               v-for="(contact,index) in contacts"
               @click="goToChat(index)"
-              class="chat"
-              v-show="contact.name.toLowerCase().includes(searchInput)"
+              class="chat p-2"
+              v-show="contact.visible"
             >
-              <figure class="img-rounded">
-                <img :src="contact.avatar" alt="" />
-              </figure>
-              <div class="chat-text ms-2 mt-2 flex-grow-1">
-                <h2 class="chat-name fs-4">{{contact.name}}</h2>
-                <h4 class="chat-preview fs-6">
-                  {{contact.messages.length > 0 ? getLastMessage(index).message
-                  : ""}}
-                </h4>
+              <div class="col-2">
+                <figure class="img-rounded">
+                  <img :src="contact.avatar" alt="" />
+                </figure>
               </div>
-              <div class="chat-time">
-                {{contact.messages.length > 0 ? getLastMessage(index).date :
-                ""}}
+              <div class="col-7">
+                <div class="chat-text ms-2 mt-2 flex-grow-1">
+                  <h2 class="chat-name fs-4">{{contact.name}}</h2>
+                  <h4 class="chat-preview fs-6">
+                    {{getLastMessage(index).message}}
+                  </h4>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="chat-time">{{getLastMessage(index).date}}</div>
               </div>
             </div>
           </div>
@@ -149,28 +152,26 @@
               :class="message.status"
             >
               <div class="dropdown message-menu-icon">
-                <div class="dropdown">
-                  <span
-                    class="dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                  ></span>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <button class="dropdown-item" type="button">
-                        Message Info
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        @click="deleteMessage(index)"
-                      >
-                        Delete Message
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                <span
+                  class="dropdown-toggle d-block"
+                  data-bs-toggle="dropdown"
+                ></span>
+                <ul class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item" type="button">
+                      Message Info
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="dropdown-item"
+                      type="button"
+                      @click="deleteMessage(index)"
+                    >
+                      Delete Message
+                    </button>
+                  </li>
+                </ul>
               </div>
               <span class="message-txt">{{message.message}}</span>
               <span class="message-time">{{message.date}}</span>
@@ -194,7 +195,7 @@
       </div>
     </div>
 
-    BOOTSTRAP JS
+    <!-- BOOTSTRAP JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -202,6 +203,7 @@
     ></script>
 
     <!-- MY JS -->
+    <script type="text/javascript" src="./js/data.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
   </body>
 </html>

@@ -145,7 +145,6 @@ i {
 
 /* ? chats */
 #app .chat {
-  padding: 0.8rem 1.5rem;
   display: flex;
   cursor: pointer;
   border-bottom: 1px solid #d6d6d6;
@@ -170,13 +169,14 @@ i {
 .chat-time {
   color: var(--text-secondary);
   font-weight: bold;
-  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chat-time {
   flex-shrink: 0;
   font-size: 0.7rem;
-  align-self: flex-start;
+  text-align: right;
 }
 
 /* ! active chat section */
@@ -216,15 +216,6 @@ i {
   word-wrap: break-word;
 }
 
-.div-prova {
-  position: absolute;
-  padding: 1rem;
-  background: white;
-  right: 0;
-  top: 40px;
-  z-index: 1;
-}
-
 .message.sent {
   align-self: flex-end;
   background-color: var(--sent-msg-bg);
@@ -237,13 +228,16 @@ i {
 
 .message-menu-icon {
   position: absolute;
-  visibility: hidden;
   align-self: flex-end;
   padding-right: 0.5rem;
 }
 
-.message:hover .message-menu-icon {
-  visibility: visible;
+#app .message .dropdown-toggle::after {
+  display: none;
+}
+
+#app .message:hover .dropdown-toggle::after {
+  display: inline-block;
 }
 
 .message-txt {
