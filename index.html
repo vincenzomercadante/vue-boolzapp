@@ -118,8 +118,12 @@
               </div>
             </div>
 
-            <div class="create-contact" v-show="newContactPressed" @clickout>
-              <div class="create-contact-close" @click="createContact()">
+            <div
+              class="create-contact"
+              v-show="newContactPressed"
+              @keyUp.enter="addContactControl()"
+            >
+              <div class="create-contact-close" @click="addContactControl()">
                 <i class="fa-solid fa-xmark"></i>
               </div>
               <label for="username" class="form-label">Username</label>
@@ -142,10 +146,18 @@
               />
 
               <div class="create-contact-comand">
-                <button class="btn btn-success" @click="addContact()">
+                <button class="btn btn-success" @click="addContactControl()">
                   <i class="fa-solid fa-floppy-disk"></i> Save
                 </button>
               </div>
+            </div>
+            <div
+              class="alert"
+              role="alert"
+              :class="'alert-' + alert.type"
+              v-show="alert.showed"
+            >
+              {{alert.msg}}
             </div>
           </div>
         </section>

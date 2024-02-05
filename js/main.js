@@ -21,6 +21,11 @@ const app = createApp({
       generatedMessageList,
       newContactPressed,
       newContact,
+      alert: {
+        showed: false,
+        type: "info",
+        msg: "",
+      },
     };
   },
 
@@ -147,10 +152,34 @@ const app = createApp({
 
     // when the user click the save button, a copy of newContact will pushed in contacts array
     addContact() {
-      this.contacts.push({ ...newContact });
+      this.contacts.push({ ...this.newContact });
       this.newContact.name = "";
       this.newContact.avatar = "";
       this.newContactPressed = false;
+      this.alert.type = "info";
+      this.alert.msg = "";
+      this.alert.showed = false;
+    },
+    addContactControl() {
+      if (!this.newContact.avatar && this.newContact.name) {
+        this.newContact.avatar =
+          "./img/360_F_509597532_RKUuYsERhODmkxkZd82pSHnFtDAtgbzJ.jpg";
+        this.addContact();
+      } else if (!this.newContact.name) {
+        console.log("errore");
+        this.resultOperation(
+          "danger",
+          "Username is mandatory for user creation"
+        );
+      } else {
+        this.addContact();
+      }
+    },
+
+    resultOperation(type, msg) {
+      this.alert.type = type;
+      this.alert.msg = msg;
+      this.alert.showed = true;
     },
   },
 });

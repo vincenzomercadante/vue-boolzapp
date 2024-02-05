@@ -47,9 +47,15 @@ i {
   margin-bottom: 0;
 }
 
+#app .alert {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* ! viewport */
 .viewport {
-  position: relative;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -63,6 +69,7 @@ i {
 
 /* ! app */
 #app {
+  position: relative;
   height: 850px;
   width: 1600px;
   display: flex;
