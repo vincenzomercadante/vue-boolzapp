@@ -53,6 +53,7 @@
 
             <!-- user profile comands section -->
             <div class="chats-header-comands me-4">
+              <i class="fa-solid fa-pen ms-4" @click="createContact()"></i>
               <i class="fa-solid fa-circle-notch ms-4"></i>
               <i class="fa-solid fa-message ms-4"></i>
               <i class="fa-solid fa-ellipsis-vertical ms-4"></i>
@@ -90,28 +91,60 @@
 
           <!-- chats list section -->
           <div class="chats-container">
-            <!-- chat generator -->
-            <div
-              v-for="(contact,index) in contacts"
-              @click="goToChat(index)"
-              class="chat p-2"
-              v-show="contact.visible"
-            >
-              <div class="col-2">
-                <figure class="img-rounded">
-                  <img :src="contact.avatar" alt="" />
-                </figure>
-              </div>
-              <div class="col-7">
-                <div class="chat-text ms-2 mt-2 flex-grow-1">
-                  <h2 class="chat-name fs-4">{{contact.name}}</h2>
-                  <h4 class="chat-preview fs-6">
-                    {{getLastMessage(index).message}}
-                  </h4>
+            <div class="chats-list" v-show="!newContactPressed">
+              <!-- chat generator -->
+              <div
+                v-for="(contact,index) in contacts"
+                @click="goToChat(index)"
+                class="chat p-2"
+                v-show="contact.visible"
+              >
+                <div class="col-2">
+                  <figure class="img-rounded">
+                    <img :src="contact.avatar" alt="" />
+                  </figure>
+                </div>
+                <div class="col-7">
+                  <div class="chat-text ms-2 mt-2 flex-grow-1">
+                    <h2 class="chat-name fs-4">{{contact.name}}</h2>
+                    <h4 class="chat-preview fs-6">
+                      {{getLastMessage(index).message}}
+                    </h4>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="chat-time">{{getLastMessage(index).date}}</div>
                 </div>
               </div>
-              <div class="col-3">
-                <div class="chat-time">{{getLastMessage(index).date}}</div>
+            </div>
+
+            <div class="create-contact" v-show="newContactPressed" @clickout>
+              <div class="create-contact-close" @click="createContact()">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control mb-3"
+                placeholder="Type the username of the new contact"
+                v-model.trim="newContact.name"
+              />
+              <label for="path" class="form-label">Profile Image</label>
+              <input
+                type="text"
+                name="path"
+                id="path"
+                class="form-control mb-3"
+                placeholder="Insert the path of the new contact image profile"
+                v-model.trim="newContact.avatar"
+              />
+
+              <div class="create-contact-comand">
+                <button class="btn btn-success" @click="addContact()">
+                  <i class="fa-solid fa-floppy-disk"></i> Save
+                </button>
               </div>
             </div>
           </div>
@@ -126,7 +159,7 @@
               <figure class="img-rounded">
                 <img :src=" getActiveChat.avatar" alt="user profile" />
               </figure>
-              <div class="ms-1">
+              <div class="ms-3">
                 <h2 class="chat-title fs-5">{{getActiveChat.name}}</h2>
                 <h4 class="chat-access fs-6">{{getLastAccess()}}</h4>
               </div>

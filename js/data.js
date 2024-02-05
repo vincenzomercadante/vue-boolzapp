@@ -182,4 +182,13 @@ const data = {
     "si",
     "piuttosto bene",
   ],
+
+  newContactPressed: false,
+
+  newContact: {
+    name: "",
+    avatar: "",
+    visible: true,
+    messages: [],
+  },
 };

@@ -6,6 +6,8 @@ const {
   newSentMessage,
   searchInput,
   generatedMessageList,
+  newContactPressed,
+  newContact,
 } = data;
 
 // app creation
@@ -17,6 +19,8 @@ const app = createApp({
       newSentMessage,
       searchInput,
       generatedMessageList,
+      newContactPressed,
+      newContact,
     };
   },
 
@@ -134,6 +138,19 @@ const app = createApp({
      */
     deleteMessage(index) {
       this.getActiveChat.messages.splice(index, 1);
+    },
+
+    // open/close the create account tab
+    createContact() {
+      this.newContactPressed = this.newContactPressed ? false : true;
+    },
+
+    // when the user click the save button, a copy of newContact will pushed in contacts array
+    addContact() {
+      this.contacts.push({ ...newContact });
+      this.newContact.name = "";
+      this.newContact.avatar = "";
+      this.newContactPressed = false;
     },
   },
 });
