@@ -150,7 +150,7 @@ const app = createApp({
       this.newContactPressed = this.newContactPressed ? false : true;
     },
 
-    // when the user click the save button, a copy of newContact will pushed in contacts array
+    // add new contact & reset alert
     addContact() {
       this.contacts.push({ ...this.newContact });
       this.newContact.name = "";
@@ -160,6 +160,8 @@ const app = createApp({
       this.alert.msg = "";
       this.alert.showed = false;
     },
+
+    // when user click the button to save the new contact start a check on the input
     addContactControl() {
       if (!this.newContact.avatar && this.newContact.name) {
         this.newContact.avatar =
